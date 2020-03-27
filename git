@@ -15,3 +15,4 @@ git reset --hard HEAD~n
 或回退到指定版本
 git reset --hard (commit id,id不用写完整，前几个就可以了)
 如: git reset --hard 100023
+
