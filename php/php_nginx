@@ -1,0 +1,118 @@
+php nginx 
+1.file not fount 
+	检查root 目录设置是否正确，所访问文件是否有权限
+	error： connect() failed (111: Connection refused) while connecting to upstream
+	处理：fastcgi_param SCRIPT_FILENAME /scripts$fastcgi_script_name; 改成：fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+
+
+
+	php-fpm 是否运行 netstat -ant | grep 9000
+
+
+mysql yum 安装 
+	# yum install mariadb-server -y
+	# systemctl start mariadb.service
+	# systemctl enable mariadb.service
+	# mysql
+
+	设置mysql root密码:mysql_secure_installation
+
+
+composer install
+	php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');"
+	php composer-setup.php
+	php -r "unlink('composer-setup.php');"
+	sudo mv composer.phar /usr/local/bin/composer	
+
+	修改为中国镜像
+
+	全局：composer config -g repo.packagist composer https://packagist.phpcomposer.com  
+
+
+	项目在composer.json 加上："repositories": {
+	    "packagist": {
+	        "type": "composer",
+	        "url": "https://packagist.phpcomposer.com"
+	    }
+	}
+
+
+
+mac php-fpm 异常
+
+
+直接运行，有报错找不到配置文件。
+
+$ php-fpm
+
+[11-Jan-2014 16:03:03] ERROR: failed to open configuration file '/private/etc/php-fpm.conf': No such file or directory (2)
+
+[11-Jan-2014 16:03:03] ERROR: failed to load configuration file '/private/etc/php-fpm.conf'
+
+[11-Jan-2014 16:03:03] ERROR: FPM initialization failed
+
+可以在/private/etc/ 目录下生成配置文件，需要root权限(sudo)
+
+或者在普通用户有权限的目录里放置配置文件，通过--fpm-config参数指定配置文件的位置，如下：
+
+# cp /private/etc/php-fpm.conf.default /usr/local/etc/php-fpm.conf
+
+
+
+$ php-fpm --fpm-config /usr/local/etc/php-fpm.conf
+
+[11-Jan-2014 16:10:49] ERROR: failed to open error_log (/usr/var/log/php-fpm.log): No such file or directory (2)
+
+[11-Jan-2014 16:10:49] ERROR: failed to post process the configuration
+
+[11-Jan-2014 16:10:49] ERROR: FPM initialization failed
+
+错误信息显示：不能正确的打开”日志“文件，原因是默认在/usr/var目录下工作，可以修改配置文件指定正确的日志文件路径
+
+$ vim /usr/local/etc/php-fpm.conf
+
+修改php-fpm.conf文件中的error_log项，默认前缀是/usr/var ，但并没有这个路径
+
+error_log = /usr/local/var/log/php-fpm.log
+
+pid = /usr/local/var/run/php-fpm.pid
+
+或者不修改配置文件中配置项的路径，在php-fpm的运行参数中(-p)指定放置运行时文件的相对路径前缀
+
+$ php-fpm --fpm-config /usr/local/etc/php-fpm.conf  --prefix /usr/local/
+
+到此，php-fpm守护进程已经基本可以正确的启动了。
+
+php-fpm 
+自启
+vim  ~/Library/LaunchAgents/com.php-fpm.plist
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>Label</key>
+        <string>com.php-fpm</string>
+        <key>ProgramArguments</key>
+        <array>
+                <string>/usr/sbin/php-fpm --fpm-config /usr/local/etc/php-fpm.conf </string>
+        </array>
+        <key>RunAtLoad</key>
+        <true/>
+        <key>KeepAlive</key>
+        <true/>
+</dict>
+</plist>
+
+
+注册到系统
+sudo launchctl load -w ~/Library/LaunchAgents/com.php-fpm.plist
+
+https://blog.csdn.net/qq_36373262/article/details/78983039?utm_source=blogxgwz0
+
+nginx  要放这里才可以，不然怎么也自启不来
+/Library/LaunchDaemons/com.nginx.plist
+
+
+
+
+

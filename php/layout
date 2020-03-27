@@ -1,0 +1,6 @@
+//给当前view设置params参数
+        $view = Yii::$app->view->params['data'] = '这是要传递的数据';		
+        return $this->render('index');
+
+
+        <?php echo $this->params['data']?>  //输出：这是要传递的数据

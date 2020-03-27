@@ -1,0 +1,68 @@
+查找公共健
+
+from random import randint,sample
+生所测试数据 
+s1 = {x:randint(1,4),for x in sample('abcdefwg',randint(3,6))}
+s2 = {x:randint(1,4),for x in sample('abcdefwg',randint(3,6))}
+s3 = {x:randint(1,4),for x in sample('abcdefwg',randint(3,6))}
+
+
+way1:
+	s1.viewkeys() & s2.viewkyes() & s3.viewkeys()
+
+
+way2:
+	reduce(lambda a,b:a&b, map(dict.viewkeys,[s1,s2,s3]))	
+
+
+
+元组索引值改为名字，增加可读性
+t[0]  改成 t['name']
+
+from collections import namedtuple
+o = namedtuple('student',['name','age','sex','email'])
+s1 = o('allen',18,'man','qq.com')
+s2 = o('cat',17,'woman','gg.com')
+访问： s1.name
+
+
+
+统计序列中元素频数
+from random import randint
+l = [ randint(0,20) for _ in xrange(30)]
+from collections import Counter
+c = Counter(l) 统计各个字符出现的次数，结果元组的集合
+c.most_common(3) 取出现次数最多的3个元素，结果是元组
+
+例2：
+import re
+txt = open('/etc/php.ini.default').read()
+l2 = re.split('\W+',txt)
+c1 = Counter(l2)
+c2.most_common(5)
+
+
+
+字典按指定项来排序
+d = {x:randint(60,100) for x in 'xyzabc'}
+t1 = zip(d.values(),d.keys())
+t2 = zip(d.itervalues(),d.iterkeys()) 跌代的方式，节约内存
+sorted(t1)
+
+也可以用下面的方法：sorted(d.items(),key=lambda x:x[1])
+字典.items()   ,得到元组的集合
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

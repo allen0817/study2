@@ -1,0 +1,10 @@
+本机信息
+
+mysql 目录
+/usr/local/Cellar/mysql@5.7/5.7.27_1/bin
+mysql 启动 mysql.server start 
+mysql 密码 123
+
+brew services start php@7.2
+
+

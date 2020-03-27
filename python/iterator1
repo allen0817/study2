@@ -1,0 +1,115 @@
+#!/usr/bin/env python
+#coding:utf8
+
+from random import randint
+from time import sleep
+from collections import Iterable,Iterator
+
+'''
+class WeatherIterator(Iterator):
+        """docstring for WeatherIterator"""
+        def __init__(self, cities):
+                self.cities = cities
+                self.index = 0
+        def getWeather(self,city):
+                sleep(5)
+                return  city + '温度：'+  str ( randint(10,99) )
+        def  next(self):
+                if self.index == len(self.cities):
+                        raise StopIteration
+                city = self.cities[self.index]
+                self.index +=1
+                return self.getWeather(city)
+
+class WeaterIterable(Iterable):
+        """docstring for WeaterIterable"""
+        def __init__(self, cities):
+                self.cities = cities
+        def __iter__(self):
+                return WeatherIterator(self.cities)
+
+
+w = WeaterIterable(['广州','珠海','北京'])
+for x in w:
+        print(x)
+'''
+#先实现一个迭代器对象 WeatherIterator，主要实现 next 方法
+#再实现一个可迭代对象 WeaterIterable，主要实现__iter__ 方法
+
+
+
+#生成器迭代对象 yield
+class Myield(object):
+        """docstring for Myield"""
+        def __init__(self, arg):
+                super(Myield, self).__init__()
+                self.arg = arg
+
+        def test(self,name):
+                sleep(3)
+                return 'name:'+str(name)
+        def  __iter__(self):
+                for x in self.arg:
+                      yield  self.test(x)
+'''                      
+for x in Myield(['广州','珠海','北京']):
+        print(x)
+'''
+
+#实现跌代器
+
+class FloatRange(object):
+    def __init__(self,start,end,step):
+        self.start = start
+        self.end = end
+        self.step = step
+
+    def __iter__(self):
+        t = self.start
+        while  t <= self.end:
+            yield t
+            t += self.step
+
+    
+    def __reversed__(self):
+        t = self.end
+        while  t >= self.start:
+            yield t
+            t -= self.step
+    def __str__(self):
+        return 'hello world'
+
+
+for x in reversed(FloatRange(1,10,2)):
+    print(x)
+'''
+f = FloatRange(1,10,2)
+print( f  )
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

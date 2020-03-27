@@ -1,0 +1,83 @@
+队列
+
+YII 队列插件
+
+
+这里用的是 redis 支持
+
+
+1. reids 支持  php composer.phar require --prefer-dist yiisoft/yii2-redis
+2.queue 插件  php composer.phar require --prefer-dist yiisoft/yii2-queue
+
+3.配置	
+	web 和 console 都 加了这配置
+			return [
+			    'bootstrap' => [
+			        'queue', // 把这个组件注册到控制台
+			    ],
+			    'components' => [
+			        'queue' => [
+			            'class' => \yii\queue\redis\Queue::class,
+			            'as log' => \yii\queue\LogBehavior::class,
+			            // 驱动的其他选项
+			        ],
+			        'redis' => [
+			            'class' => 'yii\redis\Connection',
+			            'hostname' => 'localhost',
+			            'port' => 6379,
+			            'database' => 0,
+			        ],
+			    ],
+	            
+			];
+
+
+4.使用
+	可以先监听队列 php yii queue/listen （这个在后台一直监听）
+	或 只执行一次 php yii queue/run  这个可以配合cron 来实现
+
+	必须要实现这个接口  JobInterface
+	class DownloadJob extends BaseObject implements \yii\queue\JobInterface
+	{
+	    public $url;
+	    public $file;
+	    
+	    public function execute($queue)
+	    {
+	        file_put_contents($this->file, file_get_contents($this->url));
+	    }
+	}
+
+	加入到队列 
+	Yii::$app->queue->push(new DownloadJob([
+	    'url' => 'http://example.com/image.jpg',
+	    'file' => '/tmp/image.jpg',
+	]));
+	或将作业推送到队列中延时5分钟运行（只有一部分驱动支持延时运行）
+	Yii::$app->queue->delay(5 * 60)->push(new DownloadJob([
+	    'url' => 'http://example.com/image.jpg',
+	    'file' => '/tmp/image.jpg',
+	]));
+
+
+
+
+其它
+// 将作业推送到队列并获得其ID
+$id = Yii::$app->queue->push(new SomeJob());
+
+// 这个作业等待执行。
+Yii::$app->queue->isWaiting($id);
+
+// Worker 从队列获取作业，并执行它。
+Yii::$app->queue->isReserved($id);
+
+// Worker 作业执行完成。
+Yii::$app->queue->isDone($id);
+
+详情参考 
+https://github.com/yiisoft/yii2-queue/blob/master/docs/guide-zh-CN/usage.md
+
+
+
+

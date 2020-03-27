@@ -1,0 +1,4 @@
+command
+
+查看php-cgi所有进程数
+netstat -anpo | grep "php-cgi" | wc -l

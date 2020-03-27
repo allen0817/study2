@@ -1,0 +1,5 @@
+lender:
+	docker swarm init --advertise-addr=ip
+worker:
+	另一台机器
+	docker swarm join --token SWMTKN-1-0wlns8epej7sk544222pgamncidsk3znr49vexgqq9mniep55h-cce3oanrzvpbk2rplpfguw204 192.168.0.200:2377

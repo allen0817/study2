@@ -1,0 +1,22 @@
+<data>
+	<student>
+		<name>allen</name>
+		<age>18</age>
+		<hobby>baseball</hobby>
+	</student>
+	<student>
+		<name>cat</name>
+		<age>18</age>
+		<hobby>shopping</hobby>
+	</student>
+	<student>
+		<name>dog</name>
+		<age>3</age>
+		<hobby>play</hobby>
+	</student>
+	<student>
+		<name>qiqi</name>
+		<age>4</age>
+		<hobby>eating</hobby>
+	</student>
+</data>

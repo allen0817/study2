@@ -1,0 +1,46 @@
+文件是否存在，多个命令用;分开，也可以用if
+[ -f t1.sh ]&& echo 1;echo 2||echo 0
+#!/bin/sh
+if [ -f ./t1.sh ]
+then
+        echo 1
+else
+        echo 0
+fi
+
+#[ -f ./t1.sh ]&& echo 1; echo 2||      echo 0
+[ -f ./t2.sh ]&&{
+echo 1
+echo 2
+}||{
+echo 0
+}
+
+
+[ 1 -eq 1 -a  2 -gt 4 ]&&echo 1||echo 2
+
+vim 替换
+方法1	:%s#$1#$2#g
+方法2	:s/目标/替换/标志
+	当前行  :s/a/b/g
+	所有行	:%s/a/b/g
+
+a[0]=0
+a[1]=1
+a[2]=2
+数组长度 ${#a[@]}
+数组所有元素 ${a[*]}
+for i in a;do echo $i;done;
+for((i=0;i<${#a[@]};i++));do echo ${a[i]};done;
+
+
+生成随机数：
+date +%s%N|base64 |tr A-Z a-z|tr 0-9 a-z|cut -c 19-27
+
+1+2+3+4+5+6+7+8+9+10=55
+echo `seq -s + 10`=`seq -s + 10|bc`
+
+read -t 5 -p "input your name:" name
+
+
+

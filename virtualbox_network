@@ -1,0 +1,38 @@
+virtaulbox network连接内外网
+1.虚拟机新建两个网卡， 一个NAT,一个桥接
+2.NAT 设置HDCP,桥接网卡 设置
+
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+#BOOTPROTO=dhcp
+BOOTPROTO=static
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=enp0s8
+UUID=3e466e19-c7ab-4c13-9cf0-84359de61dfd
+DEVICE=enp0s8
+#ONBOOT=no
+ONBOOT=yes
+IPADDR=192.168.0.223
+NETMASK=255.255.255.0
+GATEWAY=192.168.0.255
+NDS1=8.8.8.8
+NDS2=114.114.114.114
+
+dns  配置
+1.网卡配置里增加
+NDS1=8.8.8.8
+NDS2=114.114.114.114
+
+2./etc/resolv.conf
+nameserver 8.8.8.8
+nameserver 114.114.114.114
+
+教程
+https://blog.csdn.net/shijiujiu33/article/details/90677019?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task

@@ -1,0 +1,16 @@
+所有内置变量
+
+http://nginx.org/en/docs/varindex.html
+
+
+nginx 加入开机自启
+新增文件 /etc/init.d/nginx  
+脚本省略，可以从官网获取，给执行权限
+https://www.nginx.com/resources/wiki/start/topics/examples/redhatnginxinit/
+
+修改配置
+nginx=”/usr/sbin/nginx” 修改成nginx执行程序的路径。
+NGINX_CONF_FILE=”/etc/nginx/nginx.conf” 修改成配置文件的路径。
+
+1.chkconfig --add /etc/init.d/nginx 
+2.chkconfig nginx on 或者 systemctl enable nginx.service

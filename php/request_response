@@ -1,0 +1,20 @@
+
+
+response 
+	
+
+	浏览器跳转: 
+		可用于ajax跳转，还可以定时
+			sleep(2);	return Yii::$app->response->redirect('t');  
+
+
+发送文件 
+	return \Yii::$app->response->sendFile('path/to/file.txt');	
+
+	ob_clean();
+    $f = fopen('index.php','r+');
+    $response->sendStreamAsFile($f,'bb')->send();
+
+
+    
+

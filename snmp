@@ -1,0 +1,14 @@
+snmp  config 
+	/etc/snmp/snmp.conf
+
+
+/usr/local/Cellar/net-snmp-5.4.5.rc1
+/usr/share/snmp
+
+
+
+
+
+
+
+

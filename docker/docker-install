@@ -1,0 +1,60 @@
+官网安装步骤
+1.卸载其它docker
+  yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
+2.安装必须的包
+yum install -y yum-utils device-mapper-persistent-data   lvm2
+3.使用下列命令设置 stable 镜像仓库
+ $  yum-config-manager \
+     --add-repo \
+     https://download.docker.com/linux/centos/docker-ce.repo
+	 
+4.可选：启用 edge 和 testing 镜像仓库	 
+	yum-config-manager --enable docker-ce-edge
+	yum-config-manager --enable docker-ce-testing
+	
+5.更新 yum 软件包索引
+	yum makecache fast	
+6.安装最新版本的 Docker CE
+		yum install docker-ce
+		yum install docker-ce-<VERSION>  安装指定版本
+附上中文地址：https://docs.docker-cn.com
+英文地址：https://docs.docker.com	
+
+
+
+Docker网络代理设置
+https://blog.csdn.net/styshoo/article/details/55657714
+
+新建配置文件 
+[root@localhost ~]# vim /etc/systemd/system/docker.service.d/http-proxy.conf 
+
+  [Service]
+  Environment="HTTP_PROXY=http://127.0.0.1:8123/"
+  Environment="HTTPS_PROXY=http://127.0.0.1:8123/"
+
+（说明：我这里是用了代理连接到远程服务器的）
+
+更新配置：
+systemctl daemon-reload
+
+ 重启Docker服务
+ systemctl restart docker
+
+
+
+配置国内docker镜像源
+使用中国科学大学的docker镜像缓存，在配置文件 /etc/docker/daemon.json 中加入以下内容（如果没有该文件，则新增）：
+{
+  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
+}
+重新启动dockerd
+sudo service docker restart

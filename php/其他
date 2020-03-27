@@ -1,0 +1,61 @@
+1.简单提示框
+	<?= yii\bootstrap\Alert::widget([
+	    'options' => [
+	        'class' => 'alert-info',
+	    ],
+	    'body' => '保存失败！',
+	]);
+	?>
+
+
+加密解密 
+	$data = '123';	
+    $secretKey = 'aa';
+    $encryptedData = Yii::$app->getSecurity()->encryptByPassword($data, $secretKey);
+    $data = Yii::$app->getSecurity()->decryptByPassword($encryptedData, $secretKey);
+
+
+生成密码
+    $password = '123';
+    $hash = Yii::$app->getSecurity()->generatePasswordHash($password);
+验证密码
+    Yii::$app->getSecurity()->validatePassword('123',$hash);
+
+
+
+class AnimalFactory
+{
+
+
+    public static function create($type){
+
+        $class = "\\app\\common\\classes\\".$type;
+
+        if (class_exists($class)){
+            $animal = new $class();
+            if($animal instanceof  Animal){
+                return $animal;
+            }
+        }
+        throw new HttpException(500,'没有此类');
+    }
+
+}
+
+
+每天下班前把做的东西总结
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

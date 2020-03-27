@@ -1,0 +1,62 @@
+输出重定向 >
+例：ls > /tmp/aa
+ > 正确消息的重定向
+ls > /tmp/aa
+
+ 2> 错误消息重定向
+
+ ls /ggggg 2>  /tmp/aa (因为没有ttt这个目录，所以这是一个错误操作，会把错误的消息记录在/tmp/aa)
+
+
+ > 可以用来创建文件 如： > abc
+ touch abc 标准的创建文件
+
+
+ cat > a.txt 也是可以创建文件的，他会等待你输入 
+
+ 正确和错误都重定向到这个文件
+ ls > /tmp/aa 2>&1  或 ls &> /tmp/aa
+
+
+ > 作用：
+ 创建文件 > a
+ 清空文件  >a
+
+
+>> 追回的方式 
+
+********************************* 
+
+输入重定向 < （在脚本可能会使用）
+
+tr 小写转大写 : tr  'a-z' 'A-Z'
+tr 'a-z' 'A-Z' < /p.txt
+cat > a.txt << DDD
+这是输入的内容
+DDD
+(这个命令会把输入的重定向到a.txt这个文件 )
+
+查看目录有多少个目录 
+例 ： ls /etc/ -l | grep '^d' | wc -l
+
+tee 管道复制
+ls /etc/ -l |grep '^d' | tee /tmp/b | wc -l
+
+
+tr 可做简单的加密使用，如
+tr '"a-m""n-z"'  '"n-z""a-m"' < /etc/passwd > a (把passwd文件内容转换再重定向到a文件 )
+
+
+/usr/bin/python /usr/local/zabbix/scripts/svc_perf_wbem.py --cluster "10.240.240.130" --user "superuser" --password "Cloud@123.com" --hostname 'BJ-2-YZ06-F06-DA-IBMV7K-02' --proxy "172.16.86.105" --fun "msg"
+
+
+ibmCollect[10.240.240.130,superuser,Cloud@123.com,BJ-2-YZ06-F06-DA-IBMV7K-02,172.16.86.105,"msg"]	600
+
+
+
+
+
+
+
+
+

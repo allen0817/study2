@@ -1,0 +1,39 @@
+sqlite 
+
+项目需求把菜单和权限部分表用sqlite存储，目的不用菜单和权限修改了不用去操作数据库
+
+linux 一般都有装这个软件
+
+需要做的，新增一个sqlite 数据库连接 
+
+可以新增一个数据库配置文件 ，也可以用数组形式去web 配置
+return [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'sqlite:'.__DIR__.'/../data/sqlite_data.db',
+];
+
+web 
+'sqlite' => require(__DIR__ . '/sqlite.php'),
+
+
+
+再去model 覆盖 getDb 这个方法
+
+public static function getDb()
+{
+    return Yii::$app->sqlite; //指定用 这个sqlite连接 
+    或
+    return Yii::$app->get('sqlite');
+}
+
+为连接多个数据库提供一种方法 
+
+
+
+CREATE TABLE member(
+   id integer  PRIMARY KEY,
+   name text,
+   hobby text
+);
+
+insert into member values (1,"allen","game")

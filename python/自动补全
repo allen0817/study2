@@ -1,0 +1,36 @@
+自动补全
+
+mac 
+
+新建~/.pythonstartup文件并写入以下内容：
+import sys
+import readline
+import rlcompleter
+ 
+if sys.platform == 'darwin' and sys.version_info[0] == 2:
+    readline.parse_and_bind("bind ^I rl_complete")
+else:
+    readline.parse_and_bind("tab: complete")
+
+
+然后设置环境变量PYTHONSTARTUP，可以在家目录的~/.bash_profile文件中进行设置，追加如下一行。如下：
+export PYTHONSTARTUP=$HOME/.pythonstartup.py
+
+重新加载~/.bash_profile配置文件，
+. ~/.bash_profile
+
+
+sublime 新增 python3
+tools->build system->new build system 新增
+
+{
+ "cmd": ["python3","-u","$file"],
+ "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+ "selector": "source.python",
+ "encoding": "utf8",
+}
+
+
+
+其它一些设置
+https://blog.csdn.net/samenmoer/article/details/89740271

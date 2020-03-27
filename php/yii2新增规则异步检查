@@ -1,0 +1,39 @@
+1.model 
+	[["字段"], "checkA", 'skipOnEmpty' => false, 'skipOnError' => false],
+
+
+	//实现方法checkA
+	public function checkA($attribute, $params)
+	{
+	    代码。。。。。
+	    $this->addError($attribute, "字段值不可以为空.");
+	}
+
+
+
+2.view 
+	$validationUrl = ['validate-form'];
+	if (!$model->isNewRecord) {
+	    $validationUrl['id'] = $model->id;
+	}
+	必须有下面三个参数
+	<?php $form = ActiveForm::begin([
+        'id' => 'form-id',
+        'enableAjaxValidation' => true,//是否开启ajax修改，这里的validationUrl需要自己定义，否则会在失去焦点的时候就更改当前的值了！
+        'validationUrl' => $validationUrl,
+	    ]
+	); ?>
+
+3.controller 
+	public function actionValidateForm ($id = null) {
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+	    $model = $id === null ? new Process() : Process::findOne($id); //换回相应的模型 
+	    $model->load(Yii::$app->request->post());  
+	    return \yii\widgets\ActiveForm::validate($model);  
+	}
+
+
+
+
+
+

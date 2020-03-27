@@ -1,0 +1,9 @@
+ci是case insenstive大小写不敏感的意思
+utf8_general_cs：区分大小写
+utf8_general_ci：不区分大小写，校对快、准确度差
+utf8_unicode_ci：不区分大小写，校对慢、准确度高
+utf8_bin：区分大小写，可存储二进制内容
+
+
+
+

@@ -1,0 +1,68 @@
+环境 contos 7 最小版
+虚拟机上不了网 ： vmware 选择自动 ，到 /etc/sysconfig/network-script/ifcgf-en33(这个是我的网卡)，正确设置ip,网关，dns，netmask,关闭dhcp, 设置完还是上了网的
+				再到 /etc/resolve.conf 把dns 加进去，重启网络 systemctl restart network , systemctl start network.service
+
+
+
+ssh登录 ：
+	操作命令：ssh -l username hostip（增加用启 如：ssh -l root  192.1681.191）
+	登录 ： ssh -l root 192.168.1.1
+	本地复制文件到远程服务器（我这里远程的是192.168.1.191）： scp 本地文件   root@192.168.1.191:/var/tmp 
+	
+
+
+nginx服务器html能正常访问，php 不能502 先确定目录是否正确 再就是 php-cgi 可能没有权限，可以 sudo /usr/sbin/php-fpm 启动
+
+
+phpstorm http://xidea.online
+
+				
+
+
+
+mysql 错误：of SELECT list is not in GROUP BY clause and  contains nonaggregated column
+
+(可能的原因之一：group by 之前不能order by )
+实际修改有效
+sudo mysql -uroot -p 执行下面的命令
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+
+
+
+
+
+yum install libxml2-dev libssl-dev libbz2-dev libcurl3-dev libdb5.1-dev libjpeg-dev libpng-dev libXpm-dev libfreetype6-dev libt1-dev libgmp3-dev libc-client-dev libldap2-dev libmcrypt-dev libmhash-dev freetds-dev libz-dev libmysqlclient15-dev ncurses-dev libpcre3-dev unixODBC-dev postgresql-server-dev-9.1 libsqlite-dev libaspell-dev libreadline6-dev librecode-dev libsnmp-dev libtidy-dev libxslt-dev libt1-dev
+
+yum install libxml2 libxml2-devel openssl openssl-devel bzip2 bzip2-devel libcurl libcurl-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel gmp gmp-devel libmcrypt libmcrypt-devel readline readline-devel libxslt libxslt-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel ncurses curl gdbm-devel db4-devel libXpm-devel libX11-devel gd-devel gmp-devel expat-devel xmlrpc-c xmlrpc-c-devel libicu-devel libmcrypt-devel libmemcached-devel
+
+
+
+
+
+1.进入php源码包中，找到需要安装的扩展模块目录。
+cd /root/php-5.6.26/ext/pcntl
+
+2.在扩展模块目录，运行phpize程序。
+/usr/local/bin/phpize
+
+3.进行编译安装。
+./configure --with-php-config=/usr/local/php/bin/php-config
+make
+make install
+4.vim /etc/php.ini
+add: extension=pcntl.so
+
+开放80端口
+	firewall-cmd --add-port=80/tcp --permanent
+重启防火墙 firewall-cmd --reload
+
+重启网络：service network restart 
+
+dns配置 /etc/resolv.conf 
+
+
+
+
+
+

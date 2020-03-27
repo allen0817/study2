@@ -1,0 +1,49 @@
+1.controller 
+
+        if (Yii::$app->request->isAjax){ //加上这个异步时不会渲染多余的东西
+            $this->layout = false;
+        }
+        $query = Process::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' =>  $query->count(),
+        ]);
+        $data = $query->offset($pagination->offset)->limit($pagination->limit)->all();
+
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $data,
+        ]);
+
+
+        return $this->render('process',[
+            'dataProvider' => $dataProvider,
+            'pagination' => $pagination
+        ]);
+
+2.view 
+	<div id="lists">
+        <?= \yii\grid\GridView::widget([
+            'dataProvider' => $process['dataProvider'],
+            'options' => ['class'=>'col-lg-12 col-md-12'],
+            'showFooter' =>  false,
+            'columns' => [
+            ],
+        ]) ?>
+
+
+        <?= LinkPager::widget([
+            'pagination' => $process['pagination'],
+        ]);
+        ?>
+    </div>
+
+3.js
+<?php $this->beginBlock('js'); ?>
+    $(document).on('click','.pagination a',function(e){
+        e.preventDefault();
+        var url=$(this).attr('href');
+        $.get(url,function(msg){
+            $('#lists').html(msg);
+        });
+    });
+<?php $this->endBlock();  $this->registerJs($this->blocks['js'], View::POS_END); ?>

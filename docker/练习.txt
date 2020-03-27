@@ -1,0 +1,39 @@
+启用一个容器
+docker run -d -P --name  nginx -v /tmp/nginx:/usr/share/nginx/html ae513a47849c
+
+
+进入一个容器
+docker exec -it  nginx2 bash
+
+
+http://blog.51cto.com/welcomeweb/1735251
+docker run --privileged  -ti -e "container=docker"  -v /sys/fs/cgroup:/sys/fs/cgroup  centos  /usr/sbin/init
+提示输入密码，关闭这个窗口，打开一个新的  docker exec -ti 容器id  /bin/bash  
+
+
+
+
+
+
+
+退出不关闭容器
+ctl+P+Q
+
+CMD  多个只会运行最后一个，如果创建容器时加了命令,cmd不会被执行（run -it centos /bin/bash）
+
+entrypoint 以服务形式运行，所以后面的命令一定会被执行
+
+
+docker 
+	centos 7
+	lnmp 
+
+
+拉取centos7 镜像 
+docker pull openshift/base-centos7
+列出所有镜像
+docker images 
+启动centos7 镜像
+docker run -it --name="centos7" 4842f0bd3d61 /bin/bash   （说明4842f0bd3d61是镜像ID）
+容器里安装nginx 
+

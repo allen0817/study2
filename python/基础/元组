@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+#coding=utf-8
+
+#元组索引值改为名字，增加可读性
+#t[0]  改成 t['name']
+
+'''
+from collections import namedtuple
+stu = namedtuple('student',['name','age','sex','email'])
+s1 = stu('allen',18,'man','123@qq.com')
+s2 = stu('belle',18,'woman','')
+
+print s1,s2
+print s1.name
+'''
+
+#统计序列中元素出现的频度
+from random import randint
+
+d = [randint(1,10) for _ in xrange(0,30)]
+
+print d
+
+from collections import Counter
+c = Counter(d)
+
+print c
+
+
+
+

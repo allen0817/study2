@@ -1,0 +1,6 @@
+1  name     age    hobby   serial
+2  allen    16     learn   no123456
+3  belle           buy12
+4  do g                     no123456
+5  qiqi     11     play1
+6  xcc      23     learn   no123456

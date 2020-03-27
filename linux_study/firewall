@@ -1,0 +1,19 @@
+firewall
+
+conteos 7
+
+查看版本 uname -a
+		cat /etc/os-release 
+		cat /etc/redhat-release
+
+
+查看防火墙状态 firewall-cmd --state
+停止 systemctl stop firewalld.service
+禁止开机自启	systemctl disable firewalld.service
+开机自启 		systemctl enable firewalld.service
+
+
+
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 8080-j ACCEPT
+
+

@@ -1,0 +1,33 @@
+yii_composer   https://pkg.phpcomposer.com
+环境unix 
+	下载安装脚本：php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');"
+	执行安装过程：php composer-setup.php  要执行的权限 chmod +x composer-setup.php
+	删除安装脚本：php -r "unlink('composer-setup.php');"
+
+	另：全局安装
+		全局安装是将 Composer 安装到系统环境变量 PATH 所包含的路径下面，然后就能够在命令行窗口中直接执行 composer 命令了
+		sudo mv composer.phar /usr/local/bin/composer
+
+	项目下如果没有这个comoser.phar也是不有使用composer管理包的
+		1. curl -sS https://getcomposer.org/installer | php
+		2.检查是否成功：php composer.phar
+
+
+就可以用composer 来管理包了
+
+修改为中国镜像
+	方法一
+		修改 composer 的全局配置文件（推荐方式）打开命令行窗口（windows用户）或控制台（Linux、Mac 用户）并执行如下命令
+		composer config -g repo.packagist composer https://packagist.phpcomposer.com
+	方法二
+		打开命令行窗口（windows用户）或控制台（Linux、Mac 用户），进入你的项目的根目录（也就是 composer.json 文件所在目录），执行如下命令
+		composer config repo.packagist composer https://packagist.phpcomposer.com
+
+
+
+更新composer
+composer selfupdate
+
+
+git clone yii 没有vendor 目录 解决方法
+进入目录，执行 composer install

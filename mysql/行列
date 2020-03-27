@@ -1,0 +1,14 @@
+行转列
+1. cross jion
+2. case when  then end
+
+select
+s.name as '学生', 
+sum(CASE when b.name='数学' then c.score end)  as '数学',
+sum(CASE when b.name='语文' then c.score end)  as '语文',
+sum(CASE when b.name='英文' then c.score end)  as '英文'
+from score as c,student as s ,`subject` as b 
+where c.user_id=s.id and c.subject_id=b.id 
+group by s.`name`
+
+

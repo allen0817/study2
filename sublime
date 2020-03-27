@@ -1,0 +1,48 @@
+
+
+
+
+
+
+python 交互模式
+安装 下面这个插件
+1.SublimeREPL
+2.Sublime Text ->Preferences->Browse Packages->SublimeREPL->config->python 
+编缉把其中一个复制 修改一下。只复制这个增加
+                {"command": "repl_open",
+                     "caption": "Python3",
+                     "id": "repl_python3",
+                     "mnemonic": "P",
+                     "args": {
+                        "type": "subprocess",
+                        "encoding": "utf8",
+                        "cmd": ["python3", "-i", "-u"],
+                        "cwd": "$file_path",
+                        "syntax": "Packages/Python/Python.tmLanguage",
+                        "external_id": "python3",
+                        "extend_env": {"PYTHONIOENCODING": "utf-8"}
+                    }
+                },
+3.把下面这段复制到
+Sublime Text ->Preferences -> key Bindings
+
+[
+	{
+		"keys":["super+2"],
+        "caption": "SublimeREPL: Python",
+        "command": "run_existing_window_command", "args":
+        {
+            "id": "repl_python",
+            "file": "config/Python/Main.sublime-menu"
+        }
+    },
+    {
+		"keys":["super+3"],
+        "caption": "SublimeREPL: Python3",
+        "command": "run_existing_window_command", "args":
+        {
+            "id": "repl_python3",
+            "file": "config/Python/Main.sublime-menu"
+        }
+    },
+]

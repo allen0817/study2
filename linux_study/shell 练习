@@ -1,0 +1,21 @@
+1.获取文件的最后几行 tail -1 file 
+2.获取文件的前几行 head -1 file
+3.获取指定第2行
+cat -n a.txt  | grep 2 | awk '{$1="";sub(" ","");print}'
+或
+cat a.txt | sed -n '2p'
+1-3行
+cat a.txt | sed -n '1,3p'
+
+tr:
+删除指定字符：echo "abcd 222" | tr -d "a"
+删除数字：echo "abcd 222" | tr -d '0-9'
+删除取反：echo "abcd 222" | tr -d -c '0-9'
+
+替换指定字符[被取代的字符个数一样]： echo "abcd 222" | tr -s  'a' 'p'  。如果是pp也中会显示一个
+范围替代：echo "abcd 222" | tr   '0-9' 'g-m'
+echo "abcd 222" | tr   'a-z' 'A-Z'
+tr '[:lower:]' '[:upper:]' < a.txt
+
+
+

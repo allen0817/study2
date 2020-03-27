@@ -1,0 +1,43 @@
+事件初步使用
+
+可以不用写evevt类，直接用框架的Event (觉得跟直接实例这个对象再调用方法没有什么区别)
+
+把事件绑定到类里，即是对这个类的扩充
+
+//第一种方式在事件绑定handler时传入数据
+
+例 ：
+	controller 
+		const TEST_EVENT = 'test_event';
+		$test = new Test(); //要绑定到的类
+        $this->on(self::TEST_EVENT,[$test,Test::EVENT_HELLO],['bb','cc']);绑定（事件名自己定议，供下面触发时调用）,在这传参
+        $this->trigger(self::TEST_EVENT);触发事件（通过这个事件名）
+
+    class 
+    	类是有这个方法
+    	const EVENT_HELLO = 'hello';
+		public function hello($event){
+			echo "<pre>";
+			print_r($event->data);
+			echo  "hello allen!<br>";
+		}
+
+
+//第二在事件触发事件时提供数据
+	自己定义的事件，在继续这个父类
+		class  HelloEvent extends  Event
+		{
+		    public $username;
+    		const SAY_HELLO = 'sayHello';
+		}
+
+		controller 
+	        $hello = new HelloEvent();
+	        $hello->username = "cat";
+	        $this->on(self::HELLO_EVENT,[$test,HelloEvent::SAY_HELLO]); 绑定事件
+	        $this->trigger(self::HELLO_EVENT,$hello); 在这里传参
+	    class 
+    	    public function sayHello($event){
+		        echo $event->username,"<pre>";
+		        echo "say hello!<br>";
+		    }

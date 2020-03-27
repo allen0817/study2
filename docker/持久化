@@ -1,0 +1,9 @@
+
+启用一个mysql 容器
+docker run --name mysql1 -e MYSQL_ROOT_PASSWORD=123 -d mysql:latest
+
+进入容器
+docker  exec -it mysql1 bash
+登录mysql 
+mysql -u root -p 
+123

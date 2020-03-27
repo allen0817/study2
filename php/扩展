@@ -1,0 +1,58 @@
+右键菜单扩展
+	地址：https://github.com/phpyii/yii2-contextmenu
+	composer require --prefer-dist liyunfang/yii2-contextmenu
+
+	依赖
+		https://github.com/nakupanda/bootstrap3-dialog
+		https://github.com/kartik-v/yii2-grid
+
+
+		使用实例   
+			<?= \kartik\grid\GridView::widget([
+		        'dataProvider' => $dataProvider,
+		        'filterModel' => $searchModel,
+		        'summary' => '第{begin}-{end}页，共计{totalCount}篇文章',
+		        'pager' => [
+		            'prevPageLabel' => '前一页',
+		            'hideOnSinglePage' => false,
+		        ],
+		        'columns' => [
+		            ['class' => '\kartik\grid\CheckboxColumn'],  //第0列
+		            [	//这里是右键 ，在这里是第一列，要跟下面的对应
+		                'class' => \liyunfang\contextmenu\SerialColumn::className(),   //KartikSerialColumnp 这个要很多扩展，不要用这个 
+		                'contextMenu' => true,
+		                //'contextMenuAttribute' => 'id',
+		                'buttons'    => [
+		                    'view' => function ($url, $model){
+		                        $title = Yii::t('kvgrid', 'View');
+		                        $label = '<span class="glyphicon glyphicon-eye-open"></span> ' . $title;
+		                        $options = ['tabindex' => '-1', 'title' => $title, 'data' => ['pjax' => '0' ,  'toggle' => 'tooltip'], 'target'=>'_blank'];
+		                        return '<li>' . Html::a($label, $url, $options) . '</li>' . PHP_EOL;
+		                    },
+		                ],
+		            ],
+		            'id',
+		            'title',
+		            [
+		                'attribute'=>'created_at',
+		                'filter' => [
+		                    0 => '测试0',
+		                    1 => '测试1'
+		                ]
+		            ],
+
+		            ['class' => 'yii\grid\ActionColumn'],
+		        ],
+		        //这是对应上面的 1 是对应上面的第一列
+		        'rowOptions' => function($model, $key, $index, $gird){
+		            $contextMenuId = $gird->columns[1]->contextMenuId;
+		            return ['data'=>[ 'toggle' => 'context','target'=> "#".$contextMenuId ]];
+		        },
+		    ]); ?>
+
+
+
+
+插件地址
+	https://github.com/org-yii-china/yii2-avatar		    
+
