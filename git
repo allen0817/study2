@@ -1,12 +1,4 @@
-yii migrate/create create_news_detail_table --fields=''
+查看git 提交记录
+git log 
 
-
-CREATE TABLE user(
-   ID INT PRIMARY KEY     NOT NULL,
-   NAME           char(20)    NOT NULL,
-   AGE            INT     NOT NULL,
-   ADDRESS        CHAR(50)
-);
-
-
-insert into user set (name,age,address) values("allen",18,"阳春");
+git log --pretty=oneline
