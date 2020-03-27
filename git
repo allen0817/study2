@@ -1,12 +1,17 @@
-yii migrate/create create_news_detail_table --fields=''
+查看历史记录
+git log 
+git log --pretty=oneline
 
+回退
+回退上一个版本
+git reset --hard  HEAD^
 
-CREATE TABLE user(
-   ID INT PRIMARY KEY     NOT NULL,
-   NAME           char(20)    NOT NULL,
-   AGE            INT     NOT NULL,
-   ADDRESS        CHAR(50)
-);
+回退上两个版本
+git reset --hard HEAD^^
 
+回退多个版本
+git reset --hard HEAD~n  
 
-insert into user set (name,age,address) values("allen",18,"阳春");
+或回退到指定版本
+git reset --hard (commit id,id不用写完整，前几个就可以了)
+如: git reset --hard 100023
