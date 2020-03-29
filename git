@@ -44,3 +44,6 @@ git branch dev
 切换到dev 分区
 git checkout dev
 
+switch 切换分区 
+git switch dev 
+
