@@ -36,3 +36,11 @@ git remote add origin git@github.com:allen0817/learngit.git
 增加分支
 git branch dev
 
+
+ 合并分区到本分区，把dev 合并到此分区 
+ git merge dev 
+
+
+切换到dev 分区
+git checkout dev
+
