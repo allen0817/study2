@@ -26,3 +26,6 @@ git diff HEAD -- file
 
 撤消工作区的更改，使工作区与git 版本内容一致
 git checkout --  file
+
+如果checkout 没有 -- 则是切换到另一个分支
+
