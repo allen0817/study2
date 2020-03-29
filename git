@@ -16,3 +16,13 @@ git reset --hard HEAD~n
 git reset --hard (commit id,id不用写完整，前几个就可以了)
 如: git reset --hard 100023
 
+
+git status
+
+
+查看工作区和版本库里面最新版本的区别
+git diff HEAD -- file
+
+
+撤消工作区的更改，使工作区与git 版本内容一致
+git checkout --  file
