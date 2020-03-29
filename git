@@ -29,3 +29,10 @@ git checkout --  file
 
 如果checkout 没有 -- 则是切换到另一个分支
 
+
+ 关联git 库
+git remote add origin git@github.com:allen0817/learngit.git
+
+增加分支
+git branch dev
+
