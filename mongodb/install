@@ -1,0 +1,110 @@
+url
+
+
+https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel70-4.2.5.tgz
+
+源码包安装
+依赖包
+
+sudo yum install cyrus-sasl cyrus-sasl-gssapi cyrus-sasl-plain krb5-libs libcurl lm_sensors-libs net-snmp net-snmp-agent-libs openldap openssl tcp_wrappers-libs
+
+tar -zxvf mongodb-linux-*-4.2.5.tgz
+
+
+加入环境变量
+sudo cp /path/to/the/mongodb-directory/bin/* /usr/local/bin/
+
+增加符号连接
+sudo ln -s  /path/to/the/mongodb-directory/bin/* /usr/local/bin/
+
+
+ulimit setting
+
+mongod fsize unlimited unlimited    # (file size)
+mongod cpu unlimited unlimited      # (cpu time)
+mongod as unlimited unlimited       # (virtual memory size)
+mongod memlock unlimited unlimited  # (locked-in-memory size)
+mongod nofile 64000 64000           # (open files)
+mongod nproc 64000 64000            # (processes/threads)
+
+
+
+
+
+增加文件保存目录和日志保存目录 
+sudo mkdir -p /var/lib/mongo
+sudo mkdir -p /var/log/mongodb
+
+自己的 
+/data/mongodb/data
+/data/mongodb/log
+
+
+
+赋权
+sudo chown -R mongod:mongod <directory>
+
+
+如果要修改数据文件和日志存放路径，则修改 /etc/mongod.conf   这个文件
+storage.dbPath to specify a new data directory path (e.g. /some/data/directory)
+systemLog.path to specify a new log file path (e.g. /some/log/directory/mongod.log)
+
+
+
+判断 Selinux 模式 ，如果为 Enforcing 模式则匹配下面
+
+Configure SELinux.
+
+	sudo yum install checkpolicy
+
+	cat > mongodb_cgroup_memory.te <<EOF
+	module mongodb_cgroup_memory 1.0;
+	require {
+	    type cgroup_t;
+	    type mongod_t;
+	    class dir search;
+	    class file { getattr open read };
+	}
+	#============= mongod_t ==============
+	allow mongod_t cgroup_t:dir search;
+	allow mongod_t cgroup_t:file { getattr open read };
+	EOF
+
+
+	checkmodule -M -m -o mongodb_cgroup_memory.mod mongodb_cgroup_memory.te
+	semodule_package -o mongodb_cgroup_memory.pp -m mongodb_cgroup_memory.mod
+	sudo semodule -i mongodb_cgroup_memory.pp
+
+
+	修改了mongodb 数据存放路径
+	semanage fcontext -a -t mongod_var_lib_t '/mongodb/data.*'
+	chcon -Rv -u system_u -t mongod_var_lib_t '/mongodb/data'
+	restorecon -R -v '/mongodb/data'
+
+	修改了日志存放路径 
+	semanage fcontext -a -t mongod_log_t '/mongodb/log.*'
+	chcon -Rv -u system_u -t mongod_log_t '/mongodb/log'
+	restorecon -R -v '/mongodb/log'
+
+
+	pid  路径修改
+	semanage fcontext -a -t mongod_var_run_t '/mongodb/log.*'
+	chcon -Rv -u system_u -t mongod_var_run_t '/mongodb/log'
+	restorecon -R -v '/mongodb/log'
+
+
+	27017 实例端口
+	27018 shardsvr 命令行端口
+	27019 configsvr 命令行端口
+
+
+
+配置文件 
+用户
+远程连接 
+
+php extend
+
+
+
+

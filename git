@@ -47,3 +47,6 @@ git checkout dev
 switch 切换分区 
 git switch dev 
 
+
+git archive -o hot-fix-201707181818.zip HEAD $(git diff c2b0b19...bfbd8fe --name-only)
+
