@@ -54,3 +54,21 @@ function read_dir_queue($dir){
     }  
      return $files;  
 }  
+
+
+
+
+function scanFile($path) {
+    global $result;
+    $files = scandir($path);
+    foreach ($files as $file) {
+        if ($file != '.' && $file != '..') {
+            if (is_dir($path . '/' . $file)) {
+                scanFile($path . '/' . $file);
+            } else {
+                $result[] = $path . DIRECTORY_SEPARATOR .basename($file);
+            }
+        }
+    }
+    return $result;
+}

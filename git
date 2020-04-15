@@ -47,6 +47,9 @@ git checkout dev
 switch 切换分区 
 git switch dev 
 
-
+增量打包
 git archive -o hot-fix-201707181818.zip HEAD $(git diff c2b0b19...bfbd8fe --name-only)
+
+git diff f506693 622b6a6 --name-only | xargs tar -czvf update.tar.gz
+
 
